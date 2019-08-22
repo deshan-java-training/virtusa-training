@@ -6,7 +6,7 @@ public class Application {
         MathLambda mathLambda = new MathLambda();
 
   int in = mathLambda.m.cal(5);
-  
+
         System.out.println(in);
 
     }

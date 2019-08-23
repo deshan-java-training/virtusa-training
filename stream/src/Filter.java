@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 public class Filter {
 
     public static void main(String[] args) {
-      //  printStudentsWithShortNames();
-       // filterWithStudents();
-      //  addDrToStudents();
-        //countStudents();
-//maxIdOfStudents();
-       // minIdOfStudents();
+    //  printStudentsWithShortNames();
+     // filterWithStudents();
+     // addDrToStudents();
+      countStudents();
+       maxIdOfStudents();
+       minIdOfStudents();
     }
 
 
@@ -26,13 +26,18 @@ long students = Student.getStudents().stream().count();
         System.out.println("Total Number Of Students Are: "+students);
     }
 
+
+
 public static void maxIdOfStudents(){
-        Student maxId = Student.getStudents().stream().max(Comparator.comparing(s -> s.getId())).get();
+
+
+        Student maxId = Student.getStudents().stream().max((s, s1)->s.getId()>s1.getId()?1:-1).get();
     System.out.println(maxId.getId());
 }
     public static void minIdOfStudents(){
-        Student minId = Student.getStudents().stream().min(Comparator.comparing(s -> s.getId())).get();
+        Student minId = Student.getStudents().stream().min((s, s1)->s.getId()>s1.getId()?1:-1).get();
         System.out.println(minId.getId());
+
     }
     public static void filterWithStudents(){
         List <Student> students = Student.getStudents().stream().filter(s -> s.getName().length()<=6)

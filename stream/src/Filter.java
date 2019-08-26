@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,10 +43,9 @@ public static void sortStudentsWithoutCompareTo(){
 // Sort with implemented comparator class
 
     public static void sortWithComparatorImplementation(){
-        List<Student> liStr = Student.getStudents().stream().sorted(new StudentComparator()).collect(Collectors.toList());
-        System.out.println("Sort with implemented comparator class");
+        List<Student> liStr = Student.getStudents();
+  Collections.sort(liStr, new StudentComparator());
         System.out.println(liStr);
-        System.out.println("**********");
     }
 
 

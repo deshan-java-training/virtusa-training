@@ -28,12 +28,12 @@ this.id=id;
 
     public static List<Student> getStudents(){
 List<Student> students = new ArrayList<>();
+        students.add(new Student("Pubudu", 4));
         students.add(new Student("Krish", 1));
+        students.add(new Student("Thilina", 6));
+        students.add(new Student("Namal", 5));
         students.add(new Student("Deshan", 2));
         students.add(new Student("Saman", 3));
-        students.add(new Student("Pubudu", 4));
-        students.add(new Student("Namal", 5));
-        students.add(new Student("Thilina", 6));
         students.add(new Student("Mahesh", 7));
         return students;
     }

@@ -15,7 +15,8 @@ public class Filter {
 //sortStudentsWithoutCompareTo();
       //  sortStudentsWithStreamCompareTo();
        // sortWithObjectMethod();
-        reverseObjectsOnId();
+        //reverseObjectsOnId();
+        sortWithComparatorImplementation();
     }
 
 
@@ -38,6 +39,16 @@ public static void sortStudentsWithoutCompareTo(){
     System.out.println(studentL);
     System.out.println("**********");
 }
+// Sort with implemented comparator class
+
+    public static void sortWithComparatorImplementation(){
+        List<Student> liStr = Student.getStudents().stream().sorted(new StudentComparator()).collect(Collectors.toList());
+        System.out.println("Sort with implemented comparator class");
+        System.out.println(liStr);
+        System.out.println("**********");
+    }
+
+
 
     //Lambda Expressions with Compare
 public static void sortStudentsWithStreamCompareTo(){

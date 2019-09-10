@@ -1,0 +1,12 @@
+spring:
+  batch:
+    job:
+      enabled: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/springJpa?createDatabaseIfNotExist=true
+    username: root
+    password: 1qaz2wsx@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create

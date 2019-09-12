@@ -19,6 +19,11 @@ public class AppRun {
         List<AppObject> list01= newList.stream().filter(s->s.getAppName().equals("Mike")).collect(Collectors.toList());
 AppObject.printList(list01);
 
+
+    Factorial fac = new Factorial();
+
+        System.out.println(fac.findFactorialOf(5));
+
     }
 
 

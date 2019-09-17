@@ -3,19 +3,31 @@ package com.encapsulation;
 public class App {
 
     public static void main(String[] args) {
-BusStation busStation = new BusStation();
+Bus_FourthLevelEncapsulation busFourthLevelEncapsulation = new Bus_FourthLevelEncapsulation();
 
-        busStation.addBus(busStation.new Bus("Yellow"));
-        busStation.addBus(busStation.new Bus("Red"));
-        busStation.addBus(busStation.new Bus("White"));
-        busStation.addBus(busStation.new Bus("Maroon"));
-        busStation.addBus(new BusStation().new Bus("Blue"));
+        busFourthLevelEncapsulation.addBus(busFourthLevelEncapsulation.new Bus("Yellow"));
+        busFourthLevelEncapsulation.addBus(busFourthLevelEncapsulation.new Bus("Red"));
+        busFourthLevelEncapsulation.addBus(busFourthLevelEncapsulation.new Bus("White"));
+        busFourthLevelEncapsulation.addBus(busFourthLevelEncapsulation.new Bus("Maroon"));
+        busFourthLevelEncapsulation.addBus(new Bus_FourthLevelEncapsulation().new Bus("Blue"));
 
-        for(BusStation.Bus bus: busStation.getBusArr()){
-            busStation.validate(bus.getColor());
+        for(Bus_FourthLevelEncapsulation.Bus bus: busFourthLevelEncapsulation.getBusArr()){
+            busFourthLevelEncapsulation.validate(bus.getColor());
             System.out.println(bus);
         }
 
+  Animal_SecondLevelEncapsulation animal=      new Animal_SecondLevelEncapsulation("4");
+    Animal_SecondLevelEncapsulation.Dog dog = animal.new Dog("bark");
+        System.out.println("The dog "+dog.getSound()+" and has legs: "+animal.getLegs());
+
+
+        School_ThirdLevelEncapsulation sch = new School_ThirdLevelEncapsulation("OKI");
+
+        sch.getStudentStatus(600);
 
     }
 }
+
+
+
+

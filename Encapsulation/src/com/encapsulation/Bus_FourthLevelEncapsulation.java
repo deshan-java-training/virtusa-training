@@ -2,7 +2,7 @@ package com.encapsulation;
 
 import java.util.ArrayList;
 
-public class BusStation {
+public class Bus_FourthLevelEncapsulation {
 
     public  ArrayList<Bus> busArr = new ArrayList<>();
 

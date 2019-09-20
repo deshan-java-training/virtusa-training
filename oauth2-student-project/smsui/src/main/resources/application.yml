@@ -1,0 +1,15 @@
+server:
+  port: 8095
+  servlet:
+    session:
+      cookie:
+        name: KSESSIONID
+security:
+  oauth2:
+    client:
+      client-id: admin
+      client-secret: adminpass
+      user-authorization-uri: http://localhost:8099/oauth/authorize
+      access-token-uri: http://localhost:8099/oauth/token
+    resource:
+      token-info-uri: http://localhost:8099/oauth/check_token

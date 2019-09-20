@@ -31,7 +31,8 @@ config.checkTokenAccess("permitAll()");
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clientConfig) throws Exception {
-clientConfig.inMemory().withClient("web").secret(passwordEncoder.encode("web123")).scopes("READ","WRITE").authorizedGrantTypes("password","authorization_code");
+clientConfig.inMemory().withClient("web").secret(passwordEncoder.encode("web123")).scopes("READ","WRITE").authorizedGrantTypes("password","authorization_code")
+.redirectUris("http://localhost:8095/login");
     }
 
     @Override

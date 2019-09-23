@@ -1,55 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/css/global.css}"/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
-    .label-center, input-center{
-width:50%;
-}
-.jumbotron input{
 
-}
-h1{
-text-align:center;
-    font-size: 25px !important;
-    color: gray;
 
-}
-.student-comp, .address-comp{
-padding: 20px;
-}
-.card-header{
-background-color:transparent !important;
-border-bottom:none !important;
-font-size:18px;
-padding:0px !important;
-}
-.welcome-head{
-    color: white;
-    background: #343a40!important;
-   text-align: right;
-    line-height: 25px;
-    padding: 5px;
-}
-
-.container{
-padding: 0px !important;
-border:1px solid #e7e7e7;
-}
-.container-body{
-line-height:20;
-text-align:center;
-height:330px;
-
-}
-.student-body{
-
-}
 </style>
     <!-- Bootstrap CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <title>Unsecured Page</title>
@@ -58,16 +21,20 @@ height:330px;
 <body>
 <div class="container">
     <div class="welcome-head">
-        Welcome
+        <div class="wel-text">
+            Welcome&nbsp<div sec:authentication="name"></div>!
+        </div>
+
+
     </div>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
 
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Create</a></li>
+                <li><a href="/">Home</a></li>
+                <li class="active"><a href="/create-student/">Create</a></li>
                 <li><a href="#">Update</a></li>
-                <li><a href="#">Search Student</a></li>
+                <li><a href="/search-student/">Search Student</a></li>
                 <li><a href="#">All Students</a></li>
 
             </ul>
@@ -98,7 +65,7 @@ height:330px;
     </div>
     <div class="card-header" id="headingOne">
         <h2 class="mb-0">
-            <a href="#demo" class="card-header" data-toggle="collapse">Student Address</a>
+            <a href="#demo" class="toggle-text" data-toggle="collapse">Student Address&nbsp<i class="icon-circle-arrow-down" style="color:#5bc0de"></i></a>
         </h2>
     </div>
     <div class="card">
@@ -134,5 +101,6 @@ height:330px;
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="application/javascript" th:src="@{/js/global.js}"></script>
 </body>
 </html>

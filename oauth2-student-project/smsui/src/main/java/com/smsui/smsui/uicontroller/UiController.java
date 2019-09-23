@@ -13,7 +13,7 @@ public class UiController extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/")
+                .antMatchers("/","/css/**","/js/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
@@ -35,5 +35,8 @@ public class UiController extends WebSecurityConfigurerAdapter {
 return "home";
     }
 
-
+@RequestMapping(value = "/search-student")
+    public String searchStudentById(){
+        return "search-student";
+    }
 }

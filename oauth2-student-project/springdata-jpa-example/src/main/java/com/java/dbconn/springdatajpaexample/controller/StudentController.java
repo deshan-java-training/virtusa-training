@@ -25,19 +25,19 @@ public class StudentController {
     }
 
 
-    @RequestMapping(value ="/student", method = RequestMethod.GET)
+    @RequestMapping(value ="/students", method = RequestMethod.GET)
     public List<Student> getStudent(){
 return stService.findAllStudents();
     }
 
-@RequestMapping(value="/student", method = RequestMethod.POST)
+@RequestMapping(value="/students", method = RequestMethod.POST)
     public Student save(@RequestBody Student student){
 stService.save(student);
 return student;
     }
 
 
-    @RequestMapping(value = "/student/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/students/{id}", method = RequestMethod.GET)
     public Student findStudentById(@PathVariable Integer id){
 return stService.findStudentFromId(id);
     }

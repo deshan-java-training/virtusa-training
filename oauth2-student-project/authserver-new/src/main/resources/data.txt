@@ -10,7 +10,7 @@ INSERT INTO oauth_client_details (client_id, client_secret, web_server_redirect_
  INSERT INTO role (name) VALUES
 		('ROLE_admin'),('ROLE_operator');
 
- INSERT INTO permission_role (permission_id, role_id) VALUES
+ INSERT INTO permission_role (p  ermission_id, role_id) VALUES
      (1,1), /*create-> admin */
      (2,1), /* read admin */
      (3,1), /* update admin */

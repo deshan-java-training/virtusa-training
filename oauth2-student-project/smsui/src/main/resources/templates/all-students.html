@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,32 +11,48 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <title>Unsecured Page</title>
+    <title>All Students</title>
 </head>
 
 <body>
 <div class="container">
     <div class="welcome-head">
-        Welcome
-    </div>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
+<div class="wel-text">
+        Welcome&nbsp<div sec:authentication="name"></div>!
+</div>
 
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/create-student/">Create</a></li>
-            <li><a href="#">Update</a></li>
-            <li><a href="/search-student/">Search Student</a></li>
-            <li><a href="/all-students/">All Students</a></li>
 
-        </ul>
     </div>
-</nav>
-    <div class="container-body">
-    <p>
-        Welcome to the student management system
-    </p>
-    </div>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/create-student/">Create</a></li>
+                <li><a href="#">Update</a></li>
+                <li class="active"><a href="/search-student/">Search Student</a></li>
+                <li><a href="#">All Students</a></li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#ID</th>
+            <th scope="col">Student Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student: ${students.body}">
+            <td><span th:text="${student.sid}"></span></td>
+            <td><span th:text="${student.name}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 

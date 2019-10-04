@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header.html :: header"></head>
+    <title>EMS - Home Page</title>
+
+<body>
+<nav th:replace="fragments/header.html :: navi"></nav>
+
+<!--================ Showcase section ===================-->
+<div id="showcase" th:style="'background-image: linear-gradient(to right bottom, rgba(50,139,207, 0.8), rgba(161,218,213, 0.8)), url('+@{/images/emp-home.jpg}+')'">
+    <div class="container showcase">
+        <div class="full-width text-center showcase-caption mt-30">
+            <h4>Your total solution for</h4>
+            <h1>Employee Management System</h1>
+            <p>Manage employees, projects & tasks</p>
+            <div class="showcase-button">
+                <a href="#features" class="button-style showcase-btn">
+                    Login here
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

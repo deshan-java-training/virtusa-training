@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700%7CRoboto%7CJosefin+Sans:100,300,400,500" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/global.css}"/>
+    <title>EMS - Home Page</title>
+</head>
+<body>
+<nav th:replace="fragments/header.html :: navi"></nav>
+<br/><br/><br/><br/>    <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new task</a><br/>
+<table class="table table-striped custab">
+    <thead>
+
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Deadline</th>
+    </tr>
+    </thead>
+    <tr>
+        <td>1</td>
+        <td>News</td>
+        <td>News Cate</td>
+
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Products</td>
+        <td>Main Products</td>
+
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Blogs</td>
+        <td>Parent Blogs</td>
+
+    </tr>
+</table>
+
+
+
+
+</body>
+</html>

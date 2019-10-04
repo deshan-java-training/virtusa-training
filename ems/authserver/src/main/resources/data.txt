@@ -1,5 +1,5 @@
 
-INSERT INTO oauth_client_details (client_id, client_secret, web_server_redirect_uri, scope, access_token_validity, refresh_token_validity, resource_ids, authorized_grant_types, additional_information) VALUES ('admin', '{bcrypt}$2a$10$shbJaEQn/jgaGTbyUwaJ4On/bmnI0dDRkVKTC8P2nrvpePFpXiGgC', 'http://localhost:8095/login', 'READ,WRITE', '3600', '10000', 'inventory,payment', 'authorization_code,password,refresh_token,implicit', '{}');
+INSERT INTO oauth_client_details (client_id, client_secret, web_server_redirect_uri, scope, access_token_validity, refresh_token_validity, resource_ids, authorized_grant_types, additional_information) VALUES ('admin', '{bcrypt}$2a$10$shbJaEQn/jgaGTbyUwaJ4On/bmnI0dDRkVKTC8P2nrvpePFpXiGgC', 'http://localhost:8065/login', 'READ,WRITE', '3600', '10000', 'inventory,payment', 'authorization_code,password,refresh_token,implicit', '{}');
 
  INSERT INTO permission (name) VALUES
  ('create_perm'),

@@ -28,4 +28,8 @@ public class UiController {
     public String showOpertations(){
         return "operations";
     }
+    @RequestMapping(value = "/create-employee")
+    public String createEmployee(){
+        return "create-employee";
+    }
 }

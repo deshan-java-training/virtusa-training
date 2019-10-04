@@ -12,7 +12,7 @@
         <!-- <img src="images/signup-bg.jpg" alt=""> -->
         <div class="container">
             <div class="register-content">
-                <form method="POST" id="signup-form" class="signup-form">
+                <form id="employee-form" class="emp-form" th:action="@{/create-emp-req}" th:object="${employee}" method="post">
                     <h2 class="form-title">Create Employee</h2>
                     <div class="form-group">
                         <input type="text" class="form-input" name="name" id="name" placeholder="Employee Name"/>
@@ -21,8 +21,7 @@
                         <input type="email" class="form-input" name="email" id="email" placeholder="Employee Email"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-input" name="password" id="password" placeholder="Employee Age"/>
-                        <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        <input type="text" class="form-input" name="age" id="age" placeholder="Employee Age"/>
                     </div>
                     <div class="form-group">
                         <input type="submit" name="submit" id="submit" class="form-submit btn" value="Create Employee"/>

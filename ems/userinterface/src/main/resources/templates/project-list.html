@@ -5,34 +5,24 @@
 
 <body>
 <nav th:replace="fragments/header.html :: navi"></nav>
-<br/><br/><br/><br/>    <a href="#" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new project</a><br/>
+<br/><br/><br/><br/>    <a href="/create-project" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new project</a><br/>
 <table class="table table-striped custab">
     <thead>
 
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Duration</th>
+        <th>Domain</th>
+        <th>Status</th>
     </tr>
     </thead>
-    <tr>
-        <td>1</td>
-        <td>News</td>
-        <td>News Cate</td>
-
+    <tr th:each="project : ${projects}">
+        <td th:text="${project.getProjid()}"/>
+        <td th:text="${project.getName()}"/>
+        <td th:text="${project.getDomain()}"/>
+        <td th:text="${project.getStatus()}"/>
     </tr>
-    <tr>
-        <td>2</td>
-        <td>Products</td>
-        <td>Main Products</td>
 
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Blogs</td>
-        <td>Parent Blogs</td>
-
-    </tr>
 </table>
 
 

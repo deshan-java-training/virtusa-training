@@ -7,19 +7,18 @@ import java.util.Date;
 public class Task {
 
     int taskid;
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
-    Date taskstart;
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
-    Date taskdue;
+
+    String taskstart;
+
+    String taskdue;
     String name;
 
 
     public Task() {
     }
 
-    public Task(int taskid, Date taskstart, Date taskdue, String name) {
+    public Task(int taskid, String taskstart, String taskdue, String name) {
         this.taskid = taskid;
-
         this.taskstart = taskstart;
         this.taskdue = taskdue;
         this.name = name;
@@ -33,19 +32,19 @@ public class Task {
         this.taskid = taskid;
     }
 
-    public Date getTaskstart() {
+    public String getTaskstart() {
         return taskstart;
     }
 
-    public void setTaskstart(Date taskstart) {
+    public void setTaskstart(String taskstart) {
         this.taskstart = taskstart;
     }
 
-    public Date getTaskdue() {
+    public String getTaskdue() {
         return taskdue;
     }
 
-    public void setTaskdue(Date taskdue) {
+    public void setTaskdue(String taskdue) {
         this.taskdue = taskdue;
     }
 

@@ -18,11 +18,11 @@ int taskid;
 
 @Column(name="taskstart")
 @DateTimeFormat(pattern = "MM-dd-yyyy")
-    Date taskstart;
+    String taskstart;
 
 @Column(name = "taskdue")
 @DateTimeFormat(pattern = "MM-dd-yyyy")
-Date taskdue;
+String taskdue;
 
 @Column(name = "name")
 String name;
@@ -31,7 +31,7 @@ String name;
     public Task() {
     }
 
-    public Task(Date taskstart, Date taskdue, String name) {
+    public Task(String taskstart, String taskdue, String name) {
         this.taskstart = taskstart;
         this.taskdue = taskdue;
         this.name = name;
@@ -45,19 +45,19 @@ String name;
         this.taskid = taskid;
     }
 
-    public Date getTaskstart() {
+    public String getTaskstart() {
         return taskstart;
     }
 
-    public void setTaskstart(Date taskstart) {
+    public void setTaskstart(String taskstart) {
         this.taskstart = taskstart;
     }
 
-    public Date getTaskdue() {
+    public String getTaskdue() {
         return taskdue;
     }
 
-    public void setTaskdue(Date taskdue) {
+    public void setTaskdue(String taskdue) {
         this.taskdue = taskdue;
     }
 

@@ -52,7 +52,24 @@ public class UiController {
     }
 
     @RequestMapping(value = "/operations")
-    public String showOpertations() {
+    public String showOpertations(Model model) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
+        HttpEntity<String> httpEntity = new HttpEntity<String>(null,httpHeaders);
+        ResponseEntity<List<Employee>> responseEntityEmployee = restTemplate.exchange("http://localhost:8092/employees", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Employee>>() {
+        });
+        List<Employee> empList = responseEntityEmployee.getBody();
+        ResponseEntity<List<Project>> responseEntityProject = restTemplate.exchange("http://localhost:8091/projects", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
+        });
+        List<Project> projList = responseEntityProject.getBody();
+        ResponseEntity<List<Task>> responseEntityTask = restTemplate.exchange("http://localhost:8094/tasks", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Task>>() {
+        });
+        List<Task> taskList = responseEntityTask.getBody();
+        model.addAttribute("employees", empList);
+        model.addAttribute("projects", projList);
+        model.addAttribute("tasks", taskList);
+
+
         return "operations";
     }
 
@@ -145,11 +162,11 @@ return "employee-list";
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
         HttpEntity<Task> httpEntity = new HttpEntity<Task>(task, httpHeaders);
 
-        ResponseEntity<Task> responseEntity = restTemplate.exchange("http://localhost:8065/tasks",HttpMethod.POST, httpEntity, Task.class);
+        ResponseEntity<Task> responseEntity = restTemplate.exchange("http://localhost:8094/tasks",HttpMethod.POST, httpEntity, Task.class);
         if(responseEntity.getStatusCodeValue()==200){
             return "redirect:tasks";
         }else {
-            return "task-list";
+            return "create-task";
         }
 }
 

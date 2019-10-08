@@ -23,4 +23,9 @@ ProjectService projectService;
     return projectService.getAllProjects();
     }
 
+
+    @RequestMapping(value = "/projects/{ids}", method = RequestMethod.GET)
+    public List<Project> getProjects(@PathVariable List<Integer> ids){
+        return projectService.getProjectsByIds(ids);
+    }
 }

@@ -1,33 +1,24 @@
-package com.ems.employeeservice.model;
+package com.emsui.userinterface.model;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Table(name = "emp_proj_tasks")
-@Entity
 public class EmployeeProjectTask {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int eptid;
 
-    @Column(name = "empid")
     int empid;
 
-    @Column(name = "projid")
     int projid;
 
-    @Column(name = "taskids")
-   String taskids;
+    int taskids;
 
-
-    public EmployeeProjectTask() {
-    }
-
-    public EmployeeProjectTask(int empid, int projid, String taskids) {
+    public EmployeeProjectTask(int empid, int projid, int taskids) {
         this.empid = empid;
         this.projid = projid;
         this.taskids = taskids;
+    }
+
+    public EmployeeProjectTask() {
     }
 
     public int getEptid() {
@@ -54,11 +45,11 @@ public class EmployeeProjectTask {
         this.projid = projid;
     }
 
-    public String getTaskids() {
+    public int getTaskids() {
         return taskids;
     }
 
-    public void setTaskids(String taskids) {
+    public void setTaskids(int taskids) {
         this.taskids = taskids;
     }
 }

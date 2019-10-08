@@ -325,6 +325,20 @@ text-align:center;
     border: 0;
     border-bottom: 1px solid #e5e5e5;
 }
+.emp-label{
+line-height: 36px;
+text-align: right;
+border-right:1px solid grey;
+font-weight: bold;
+padding-right:25px;
+}
+.emp-icon{
+text-align:center;
+}
+.emp-ind-info{
+padding-left:25px;
+    line-height: 36px;
+}
 .header {
     color:#20659a;
     font-size: 27px;

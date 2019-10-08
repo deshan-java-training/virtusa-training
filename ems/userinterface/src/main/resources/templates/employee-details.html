@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header.html :: header"></head>
+    <title>EMS - Home Page</title>
+
+<body>
+<nav th:replace="fragments/header.html :: navi"></nav><br><br><br>
+<container>
+    <div class="col-md-12">
+    <div class="well well-sm">
+        <legend class="text-xs-center header">Employee Details</legend>
+<div class="emp-details">
+    <div class="emp-icon">
+
+        <i class="fa fa-user bigicon" style="text-align:center; font-size:45px"></i>
+    </div>
+
+<br/>
+    <div class="row">
+        <div class="col-md-6 emp-label">
+            <span>ID:</span>
+        </div>
+        <div class="col-md-6 emp-ind-info">
+            <span th:text="${employee.getEmpid()}"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 emp-label">
+            <span>Name:</span>
+        </div>
+        <div class="col-md-6 emp-ind-info">
+            <span th:text="${employee.getName()}"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 emp-label">
+            <span>Email:</span>
+        </div>
+        <div class="col-md-6 emp-ind-info">
+            <span th:text="${employee.getEmail()}"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 emp-label">
+            <span>Age:</span>
+        </div>
+        <div class="col-md-6 emp-ind-info">
+            <span th:text="${employee.getAge()}"/>
+        </div>
+    </div>
+</div>
+<br/>
+        <legend class="text-xs-center header">Projects Assigned</legend>
+<table class="table table-striped custab">
+    <tr>
+        <thead>
+        <th>Project ID</th>
+        <th>Name</th>
+        <th>Domain</th>
+        <th>Status</th>
+        <th class="text-center">Action</th>
+        </thead>
+    </tr>
+    <tr th:each="project : ${projectsList}">
+        <td th:text="${project.getProjid()}"/>
+        <td th:text="${project.getName()}"/>
+        <td th:text="${project.getDomain()}"/>
+        <td th:text="${project.getStatus()}"/>
+        <td class="text-center"><a class='btn btn-info btn-xs'><span class="glyphicon glyphicon-edit"></span>View Assigned Tasks</a></td>
+    </tr>
+
+
+</table>
+    </div>
+    </div>
+</container>
+
+</body>
+</html>

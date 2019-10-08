@@ -12,15 +12,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-                <form class="" method="post">
+                <form method="post" th:action="@{/create-req-ept}" th:object="${ept}">
                     <fieldset>
                         <legend class="text-xs-center header">Assign Tasks</legend>
 <div class="formfs">
                         <div class="form-group">
                             <span class="col-md-1 offset-md-2 text-xs-center"><i class="fa fa-user bigicon"></i></span>
                             <div class="col-md-8 inp">
-                                <select class="browser-default custom-select">
-                                    <option selected>Select Employee</option>
+                                <select class="browser-default custom-select" th:field="*{empid}">
+                                    <option value="0" selected>Select Employee</option>
                                     <option th:each="employee : ${employees}" th:value="${employee.getEmpid()}" th:text="${employee.getName()}">One</option>
                                 </select>
                             </div>
@@ -28,8 +28,8 @@
                         <div class="form-group">
                             <span class="col-md-1 offset-md-2 text-xs-center"><i class="fa fa-clone bigicon"></i></span>
                             <div class="col-md-8 inp">
-                                <select class="browser-default custom-select">
-                                    <option selected>Select Project</option>
+                                <select class="browser-default custom-select" th:field="*{projid}">
+                                    <option value="0" selected>Select Project</option>
                                     <option th:each="project : ${projects}" th:value="${project.getProjid()}" th:text="${project.getName()}">One</option>
                                 </select>
                             </div>
@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <span class="col-md-1 offset-md-2 text-xs-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
                             <div class="col-md-8 inp">
-                                <select class="form-control" id="chkveg" multiple="multiple" name="alltasks">
+                                <select class="form-control" id="chkveg" multiple="multiple" th:field="*{taskids}">
                                     <option th:each="task :${tasks}" th:value="${task.getTaskid()}" th:text="${task.getName()}"/>
                                 </select>
                             </div>

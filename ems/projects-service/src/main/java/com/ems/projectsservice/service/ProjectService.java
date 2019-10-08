@@ -19,4 +19,9 @@ public class ProjectService {
     public Project saveProject(Project project){
         return projectRepo.save(project);
     }
+
+
+    public List<Project> getProjectsByIds(List<Integer> empList){
+        return projectRepo.findByProjidIn(empList);
+    }
 }

@@ -22,7 +22,7 @@
         <td th:text="${employee.getName()}"/>
         <td th:text="${employee.getAge()}"/>
         <td th:text="${employee.getEmail()}"/>
-        <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span>View</a></td>
+        <td class="text-center"><a class='btn btn-info btn-xs' th:href="@{'/employees/'+${employee.getEmpid()}}"><span class="glyphicon glyphicon-edit"></span>View</a></td>
     </tr>
 
 </table>

@@ -1,9 +1,7 @@
 package com.emsui.userinterface.controller;
 
 import com.emsui.userinterface.accesstoken.AccessTokenConfigurer;
-import com.emsui.userinterface.model.Employee;
-import com.emsui.userinterface.model.Project;
-import com.emsui.userinterface.model.Task;
+import com.emsui.userinterface.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
@@ -53,6 +52,7 @@ public class UiController {
 
     @RequestMapping(value = "/operations")
     public String showOpertations(Model model) {
+        model.addAttribute("ept", new EmployeeProjectTask());
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
         HttpEntity<String> httpEntity = new HttpEntity<String>(null,httpHeaders);
@@ -168,6 +168,47 @@ return "employee-list";
         }else {
             return "create-task";
         }
+}
+
+@RequestMapping(value = "/create-req-ept", method = RequestMethod.POST)
+    public String saveEmployeeTasks(@ModelAttribute EmployeeProjectTaskList ept){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
+    List<EmployeeProjectTask> empProTasks = new ArrayList<>();
+            ept.getTaskids().forEach((et)->{
+            EmployeeProjectTask employeeProjectTask = new EmployeeProjectTask();
+            employeeProjectTask.setEmpid(ept.getEmpid());
+            employeeProjectTask.setProjid(ept.getProjid());
+            employeeProjectTask.setTaskids(et);
+empProTasks.add(employeeProjectTask);
+        });
+
+        HttpEntity<List> httpEntity = new HttpEntity<List>(empProTasks, httpHeaders);
+
+        ResponseEntity<List<EmployeeProjectTask>> responseEntity = restTemplate.exchange("http://localhost:8092/ept", HttpMethod.POST, httpEntity, new ParameterizedTypeReference<List<EmployeeProjectTask>>() {
+        });
+
+        if(responseEntity.getStatusCodeValue()==200){
+
+            return "redirect:operations";
+        }else{
+            return "employee-list";
+        }
+
+}
+@RequestMapping(value = "/employees/{id}", method = RequestMethod.GET)
+    public String showEmpDetails(@PathVariable("id") int id, Model model){
+    HttpHeaders httpHeaders = new HttpHeaders();
+    httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
+    HttpEntity<Integer> httpEntity = new HttpEntity<Integer>(id, httpHeaders);
+    ResponseEntity<List<Project>> responseEntity = restTemplate.exchange("http://localhost:8092/emp-projects/{id}", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
+}, id);
+ResponseEntity<Employee> employeeResponseEntity = restTemplate.exchange("http://localhost:8092/employees/{id}", HttpMethod.GET, httpEntity, Employee.class, id);
+    List<Project> projectList = responseEntity.getBody();
+Employee fetchedEmpt = employeeResponseEntity.getBody();
+    model.addAttribute("projectsList", projectList);
+model.addAttribute("employee", fetchedEmpt);
+        return "employee-details";
 }
 
 }

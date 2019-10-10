@@ -19,4 +19,10 @@ public class TasksService {
     public Task saveTask(Task task){
         return tasksRepo.save(task);
     }
+
+    public List<Task> getEmpProjTasks(List<Integer> taskIds){
+
+       return tasksRepo.findByTaskidIn(taskIds);
+
+    }
 }

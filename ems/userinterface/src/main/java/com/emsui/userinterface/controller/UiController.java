@@ -10,6 +10,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,12 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.CookieManager;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @EnableOAuth2Sso
-public class UiController {
+public class UiController extends WebSecurityConfigurerAdapter {
     @Autowired
     RestTemplate restTemplate;
 
@@ -32,6 +36,32 @@ public class UiController {
         return new RestTemplate();
     }
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/", "/css/**", "/images/**","/login/oauth2")
+                .permitAll()
+                .antMatchers("/create**")
+                .hasRole("manager")
+                .antMatchers("/operations")
+                .hasRole("manager")
+
+                .anyRequest()
+        .authenticated()
+ ;
+
+    }
+
+    @RequestMapping("/home")
+    public String showLogin(){
+        return "landing";
+    }
+    @RequestMapping("/logout")
+    public String logoutUser(){
+        CookieManager cookieManager = new CookieManager();
+        return "redirect:landing";
+
+    }
     @RequestMapping(value = "/")
     public String showLanding() {
         return "landing";
@@ -52,7 +82,7 @@ public class UiController {
 
     @RequestMapping(value = "/operations")
     public String showOpertations(Model model) {
-        model.addAttribute("ept", new EmployeeProjectTask());
+        model.addAttribute("ept", new EmployeeProjectTaskList());
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
         HttpEntity<String> httpEntity = new HttpEntity<String>(null,httpHeaders);
@@ -176,11 +206,13 @@ return "employee-list";
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
     List<EmployeeProjectTask> empProTasks = new ArrayList<>();
             ept.getTaskids().forEach((et)->{
-            EmployeeProjectTask employeeProjectTask = new EmployeeProjectTask();
+            EmployeeProjectTask.EmployeeTaskCpk employeeProjectTask = new EmployeeProjectTask.EmployeeTaskCpk();
+            EmployeeProjectTask employeeProjectTaskParent = new EmployeeProjectTask();
             employeeProjectTask.setEmpid(ept.getEmpid());
             employeeProjectTask.setProjid(ept.getProjid());
             employeeProjectTask.setTaskids(et);
-empProTasks.add(employeeProjectTask);
+            employeeProjectTaskParent.setEmployeeTaskCpk(employeeProjectTask);
+empProTasks.add(employeeProjectTaskParent);
         });
 
         HttpEntity<List> httpEntity = new HttpEntity<List>(empProTasks, httpHeaders);
@@ -196,12 +228,12 @@ empProTasks.add(employeeProjectTask);
         }
 
 }
-@RequestMapping(value = "/employees/{id}", method = RequestMethod.GET)
+@RequestMapping(value = "/employees/{id}/projects/", method = RequestMethod.GET)
     public String showEmpDetails(@PathVariable("id") int id, Model model){
     HttpHeaders httpHeaders = new HttpHeaders();
     httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
     HttpEntity<Integer> httpEntity = new HttpEntity<Integer>(id, httpHeaders);
-    ResponseEntity<List<Project>> responseEntity = restTemplate.exchange("http://localhost:8092/emp-projects/{id}", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
+    ResponseEntity<List<Project>> responseEntity = restTemplate.exchange("http://localhost:8092/employees/{id}/projects", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
 }, id);
 ResponseEntity<Employee> employeeResponseEntity = restTemplate.exchange("http://localhost:8092/employees/{id}", HttpMethod.GET, httpEntity, Employee.class, id);
     List<Project> projectList = responseEntity.getBody();
@@ -209,6 +241,27 @@ Employee fetchedEmpt = employeeResponseEntity.getBody();
     model.addAttribute("projectsList", projectList);
 model.addAttribute("employee", fetchedEmpt);
         return "employee-details";
+}
+
+
+@RequestMapping(value = "employees/{empid}/projects/{projid}/tasks/")
+public String showTasksOfEmployeeProjects(@PathVariable int empid, @PathVariable int projid, Model model){
+
+HttpHeaders httpHeaders = new HttpHeaders();
+httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
+List<Integer> passingInts = new ArrayList<Integer>();
+passingInts.add(empid);
+passingInts.add(projid);
+HttpEntity<Task> idsHttpEntity = new HttpEntity<Task>(httpHeaders);
+HttpEntity<Project> projectHttpEntity = new HttpEntity<Project>(httpHeaders);
+ResponseEntity<List<Task>> taskList = restTemplate.exchange("http://localhost:8092/employees/{empid}/projects/{projid}/tasks", HttpMethod.GET, idsHttpEntity, new ParameterizedTypeReference<List<Task>>() {
+}, empid, projid);
+ResponseEntity<Project> assignedProject = restTemplate.exchange("http://localhost:8091/projects/{projid}", HttpMethod.GET, projectHttpEntity, Project.class, projid);
+List<Task> fetchedTasks = taskList.getBody();
+Project fetchedProject = assignedProject .getBody();
+model.addAttribute("taskList", fetchedTasks);
+model.addAttribute("projectSingle", fetchedProject);
+        return "employee-proj-tasks";
 }
 
 }

@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/header.html :: header"></head>
     <title>EMS - Home Page</title>
 
 <body>
 <nav th:replace="fragments/header.html :: navi"></nav>
-<br/><br/><br/><br/>    <a href="/create-employee" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new employee</a><br/>
+<br/><br/><br/><br/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm">
+<br/><a sec:authorize="hasRole('ROLE_manager')" href="/create-employee" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new employee</a><br/>
 <table class="table table-striped custab">
     <thead>
 
@@ -22,11 +27,12 @@
         <td th:text="${employee.getName()}"/>
         <td th:text="${employee.getAge()}"/>
         <td th:text="${employee.getEmail()}"/>
-        <td class="text-center"><a class='btn btn-info btn-xs' th:href="@{'/employees/'+${employee.getEmpid()}}"><span class="glyphicon glyphicon-edit"></span>View</a></td>
+        <td class="text-center"><a class='btn btn-info btn-xs' th:href="@{'/employees/'+${employee.getEmpid()}+'/projects/'}"><span class="glyphicon glyphicon-edit"></span>View</a></td>
     </tr>
 
 </table>
-
+            </div>
+        </div></div></div>
 
 
 

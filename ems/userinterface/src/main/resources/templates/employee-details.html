@@ -66,7 +66,7 @@
         <td th:text="${project.getName()}"/>
         <td th:text="${project.getDomain()}"/>
         <td th:text="${project.getStatus()}"/>
-        <td class="text-center"><a class='btn btn-info btn-xs'><span class="glyphicon glyphicon-edit"></span>View Assigned Tasks</a></td>
+        <td class="text-center"><a class='btn btn-info btn-xs' th:href="@{'/employees/'+${employee.getEmpid()}+'/projects/'+${project.getProjid()}+'/tasks/'}"><span class="glyphicon glyphicon-edit"></span>View Assigned Tasks</a></td>
     </tr>
 
 

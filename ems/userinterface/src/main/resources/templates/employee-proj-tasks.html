@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header.html :: header"></head>
+    <title>EMS - Home Page</title>
+
+<body>
+<nav th:replace="fragments/header.html :: navi"></nav>
+<br><br><br><br>
+<container>
+    <div class="col-md-12">
+        <div class="well well-sm">
+            <legend class="text-xs-center header">Assigned Project</legend>
+            <div class="emp-details">
+                <div class="emp-icon">
+
+                    <i class="fa fa-clone bigicon" style="text-align:center; font-size:45px"></i>
+                </div>
+
+                <br/>
+                <div class="row">
+                    <div class="col-md-6 emp-label">
+                        <span>Project ID:</span>
+                    </div>
+                    <div class="col-md-6 emp-ind-info">
+                        <span th:text="${projectSingle.getProjid()}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 emp-label">
+                        <span>Project Name:</span>
+                    </div>
+                    <div class="col-md-6 emp-ind-info">
+                        <span th:text="${projectSingle.getName()}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 emp-label">
+                        <span>Domain:</span>
+                    </div>
+                    <div class="col-md-6 emp-ind-info">
+                        <span th:text="${projectSingle.getDomain()}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 emp-label">
+                        <span>Status:</span>
+                    </div>
+                    <div class="col-md-6 emp-ind-info">
+                        <span th:text="${projectSingle.getStatus()}"/>
+                    </div>
+                </div>
+            </div><br/>
+            <legend class="text-xs-center header">Assigned Tasks</legend>
+            <div class="emp-icon">
+
+                <i class="fa fa-pencil-square-o bigicon" style="text-align:center; font-size:45px"></i>
+            </div><br/>
+<table class="table table-striped custab">
+    <thead>
+
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Start Date</th>
+        <th>Due Date</th>
+    </tr>
+    </thead>
+    <tr th:each="projtask : ${taskList}">
+        <td th:text="${projtask.getTaskid()}" />
+        <td th:text="${projtask.getName()}" />
+        <td th:text="${projtask.getTaskstart()}" />
+        <td th:text="${projtask.getTaskdue()}" />
+
+    </tr>
+
+</table>
+        </div>
+    </div>
+</container>
+
+
+</body>
+</html>

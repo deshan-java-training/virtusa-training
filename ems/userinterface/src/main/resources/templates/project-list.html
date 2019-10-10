@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/header.html :: header"></head>
     <title>EMS - Home Page</title>
 
 <body>
 <nav th:replace="fragments/header.html :: navi"></nav>
-<br/><br/><br/><br/>    <a href="/create-project" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new project</a><br/>
+<br/><br/><br/><br/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm">
+<br/> <a sec:authorize="hasRole('ROLE_manager')" href="/create-project" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new project</a><br/>
 <table class="table table-striped custab">
     <thead>
 
@@ -26,7 +31,7 @@
 </table>
 
 
-
+</div></div></div></div>
 
 </body>
 </html>

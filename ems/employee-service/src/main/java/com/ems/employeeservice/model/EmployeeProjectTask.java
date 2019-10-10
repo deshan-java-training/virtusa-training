@@ -1,64 +1,69 @@
 package com.ems.employeeservice.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Table(name = "emp_proj_tasks")
 @Entity
 public class EmployeeProjectTask {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int eptid;
+    @EmbeddedId
+   private EmployeeTaskCpk employeeTaskCpk;
 
-    @Column(name = "empid")
-    int empid;
+    public EmployeeTaskCpk getEmployeeTaskCpk() {
+        return employeeTaskCpk;
+    }
 
-    @Column(name = "projid")
-    int projid;
-
-    @Column(name = "taskids")
-   String taskids;
-
+    public void setEmployeeTaskCpk(EmployeeTaskCpk employeeTaskCpk) {
+        this.employeeTaskCpk = employeeTaskCpk;
+    }
+    public EmployeeProjectTask(EmployeeTaskCpk employeeTaskCpk) {
+        this.employeeTaskCpk = employeeTaskCpk;
+    }
 
     public EmployeeProjectTask() {
     }
 
-    public EmployeeProjectTask(int empid, int projid, String taskids) {
-        this.empid = empid;
-        this.projid = projid;
-        this.taskids = taskids;
-    }
+    @Embeddable
+    public static class  EmployeeTaskCpk implements Serializable {
 
-    public int getEptid() {
-        return eptid;
-    }
 
-    public void setEptid(int eptid) {
-        this.eptid = eptid;
-    }
+        int empid;
+        int projid;
+        int taskids;
 
-    public int getEmpid() {
-        return empid;
-    }
+        public EmployeeTaskCpk() {
+        }
 
-    public void setEmpid(int empid) {
-        this.empid = empid;
-    }
+        public EmployeeTaskCpk(int empid, int projid, int taskids) {
+            this.empid = empid;
+            this.projid = projid;
+            this.taskids = taskids;
+        }
 
-    public int getProjid() {
-        return projid;
-    }
+        public int getEmpid() {
+            return empid;
+        }
 
-    public void setProjid(int projid) {
-        this.projid = projid;
-    }
+        public void setEmpid(int empid) {
+            this.empid = empid;
+        }
 
-    public String getTaskids() {
-        return taskids;
-    }
+        public int getProjid() {
+            return projid;
+        }
 
-    public void setTaskids(String taskids) {
-        this.taskids = taskids;
+        public void setProjid(int projid) {
+            this.projid = projid;
+        }
+
+        public int getTaskids() {
+            return taskids;
+        }
+
+        public void setTaskids(int taskids) {
+            this.taskids = taskids;
+        }
     }
 }

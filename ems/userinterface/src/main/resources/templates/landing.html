@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/header.html :: header"></head>
     <title>EMS - Home Page</title>
 
@@ -13,12 +13,14 @@
             <h4>Your total solution for</h4>
             <h1>Employee Management System</h1>
             <p>Manage employees, projects & tasks</p>
-            <div class="showcase-button">
-                <a href="#features" class="button-style showcase-btn">
+            <div class="showcase-button" sec:authorize="!isAuthenticated()">
+                <a href="/home" class="button-style showcase-btn">
                     Login here
                 </a>
 
+
             </div>
+           <span style="text-align:center; color:white;margin:0 auto;">Welcome! <div sec:authentication="name" sec:authorize="isAuthenticated()"></div></span>
         </div>
     </div>
 </div>

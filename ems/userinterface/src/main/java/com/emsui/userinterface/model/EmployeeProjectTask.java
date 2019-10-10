@@ -1,55 +1,58 @@
 package com.emsui.userinterface.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class EmployeeProjectTask {
 
-    int eptid;
+    EmployeeTaskCpk employeeTaskCpk;
 
-    int empid;
-
-    int projid;
-
-    int taskids;
-
-    public EmployeeProjectTask(int empid, int projid, int taskids) {
-        this.empid = empid;
-        this.projid = projid;
-        this.taskids = taskids;
+    public EmployeeTaskCpk getEmployeeTaskCpk() {
+        return employeeTaskCpk;
     }
 
-    public EmployeeProjectTask() {
+    public void setEmployeeTaskCpk(EmployeeTaskCpk employeeTaskCpk) {
+        this.employeeTaskCpk = employeeTaskCpk;
     }
 
-    public int getEptid() {
-        return eptid;
-    }
+    public static class  EmployeeTaskCpk implements Serializable {
 
-    public void setEptid(int eptid) {
-        this.eptid = eptid;
-    }
 
-    public int getEmpid() {
-        return empid;
-    }
+        int empid;
+        int projid;
+        int taskids;
 
-    public void setEmpid(int empid) {
-        this.empid = empid;
-    }
+        public EmployeeTaskCpk() {
+        }
 
-    public int getProjid() {
-        return projid;
-    }
+        public EmployeeTaskCpk(int empid, int projid, int taskids) {
+            this.empid = empid;
+            this.projid = projid;
+            this.taskids = taskids;
+        }
 
-    public void setProjid(int projid) {
-        this.projid = projid;
-    }
+        public int getEmpid() {
+            return empid;
+        }
 
-    public int getTaskids() {
-        return taskids;
-    }
+        public void setEmpid(int empid) {
+            this.empid = empid;
+        }
 
-    public void setTaskids(int taskids) {
-        this.taskids = taskids;
+        public int getProjid() {
+            return projid;
+        }
+
+        public void setProjid(int projid) {
+            this.projid = projid;
+        }
+
+        public int getTaskids() {
+            return taskids;
+        }
+
+        public void setTaskids(int taskids) {
+            this.taskids = taskids;
+        }
     }
 }

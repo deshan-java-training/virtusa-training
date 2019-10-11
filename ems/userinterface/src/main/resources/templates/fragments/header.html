@@ -38,7 +38,9 @@
                 <a class="nav-link rounded-login" href="/home">Login</a>
             </li>
             <li sec:authorize="isAuthenticated()">
-                <a class="nav-link rounded-login" href="http://localhost:8093/exit">Logout</a>
+                <form class="lgout" th:action="@{/logout}" method="post">
+                    <button class="nav-link rounded-login" type="submit" >Logout</button>
+                </form>
             </li>
         </ul>
     </div>

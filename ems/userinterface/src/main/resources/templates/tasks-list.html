@@ -7,10 +7,16 @@
 <nav th:replace="fragments/header.html :: navi"></nav>
 <br/><br/><br/><br/>
 <div class="container">
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/tasks" class="active-link">Tasks</a></li>
+
+</ol>
+    <legend class="text-xs-center header">Tasks List</legend>
     <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-<br/>   <a sec:authorize="hasRole('ROLE_manager')" href="/create-task" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new task</a><br/>
+                <a sec:authorize="hasRole('ROLE_manager')" href="/create-task" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new task</a><br/>
 <table class="table table-striped custab">
     <thead>
 
@@ -24,15 +30,20 @@
     <tr th:each="task : ${tasks}">
         <td th:text="${task.getTaskid()}" />
         <td th:text="${task.getName()}" />
-        <td th:text="${task.getTaskstart()}" />
-        <td th:text="${task.getTaskdue()}" />
+        <td th:text="${#dates.format(task.getTaskstart(), 'dd-MM-yyyy')}"/>
+        <td th:text="${#dates.format(task.getTaskdue(), 'dd-MM-yyyy')}"/>
 
     </tr>
 
 </table>
 
 
-</div></div></div></div>
+</div></div></div>
+
+
+
+
+</div>
 
 </body>
 </html>

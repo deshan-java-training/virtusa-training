@@ -1,9 +1,19 @@
 package com.emsui.userinterface.model;
 
+import com.emsui.userinterface.validationAnnot.ValidateStrings;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Project {
     int projid;
+
+    @NotNull(message = "Project name cannot be null")
+    @Size(min = 2, message = "Project name must have atleast two characters")
     String name;
+
     String domain;
+
     String status;
 
     public Project(String name, String domain, String status) {

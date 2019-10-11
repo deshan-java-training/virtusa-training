@@ -1,21 +1,30 @@
 package com.emsui.userinterface.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.*;
+import java.util.Date;
+
 public class Employee {
 
 
     int empid;
-
+@NotNull(message = "Employee name cannot be null")
+    @Size(min = 2, message = "Employee Name must have atleast two characters")
     String name;
 
+    @NotEmpty(message = "Email field should not be empty")
+    @Email(regexp = "^(.+)@(.+)$", message = "Invalid email address")
     String email;
 
+    @NotNull(message = "Date field should not be empty")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    Date dob;
 
-    int age;
-
-    public Employee(String name, String email, int age) {
+    public Employee(String name, String email, Date dob) {
         this.name = name;
         this.email = email;
-        this.age = age;
+        this.dob = dob;
     }
 
     public Employee() {
@@ -45,12 +54,12 @@ public class Employee {
         this.email = email;
     }
 
-    public int getAge() {
-        return age;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
 }

@@ -2,22 +2,29 @@ package com.emsui.userinterface.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Task {
 
     int taskid;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Task Start field should not be empty")
+    Date taskstart;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "Task Due field should not be empty")
+    Date taskdue;
 
-    String taskstart;
-
-    String taskdue;
+    @NotNull(message = "Task name cannot be null")
+    @Size(min = 2, message = "Task name must have atleast two characters")
     String name;
 
 
     public Task() {
     }
 
-    public Task(int taskid, String taskstart, String taskdue, String name) {
+    public Task(int taskid, Date taskstart, Date taskdue, String name) {
         this.taskid = taskid;
         this.taskstart = taskstart;
         this.taskdue = taskdue;
@@ -32,19 +39,19 @@ public class Task {
         this.taskid = taskid;
     }
 
-    public String getTaskstart() {
+    public Date getTaskstart() {
         return taskstart;
     }
 
-    public void setTaskstart(String taskstart) {
+    public void setTaskstart(Date taskstart) {
         this.taskstart = taskstart;
     }
 
-    public String getTaskdue() {
+    public Date getTaskdue() {
         return taskdue;
     }
 
-    public void setTaskdue(String taskdue) {
+    public void setTaskdue(Date taskdue) {
         this.taskdue = taskdue;
     }
 

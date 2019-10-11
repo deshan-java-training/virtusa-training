@@ -15,12 +15,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
 import java.net.CookieManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,19 +50,18 @@ public class UiController extends WebSecurityConfigurerAdapter {
 
                 .anyRequest()
         .authenticated()
- ;
+        .and()
+ .logout()
+        .logoutSuccessUrl("/")
+        .deleteCookies("KSESSIONID", "JSESSIONID")
+        .invalidateHttpSession(true)
+        ;
 
     }
 
     @RequestMapping("/home")
     public String showLogin(){
         return "landing";
-    }
-    @RequestMapping("/logout")
-    public String logoutUser(){
-        CookieManager cookieManager = new CookieManager();
-        return "redirect:landing";
-
     }
     @RequestMapping(value = "/")
     public String showLanding() {
@@ -104,12 +105,16 @@ public class UiController extends WebSecurityConfigurerAdapter {
     }
 
     @RequestMapping(value = "/create-employee")
-    public String createEmployee() {
+    public String createEmployee(Model model) {
+        model.addAttribute("employee", new Employee());
         return "create-employee";
     }
 
     @RequestMapping(value = "/create-emp-req", method = RequestMethod.POST)
-    public String createEmpRequest(@ModelAttribute Employee employee) {
+    public String createEmpRequest(@Valid Employee employee, Errors errors, Model model) {
+        if(errors.hasErrors()){
+            return "create-employee";
+        }
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
 
@@ -157,9 +162,10 @@ return "employee-list";
 
 
     @RequestMapping(value = "/create-proj-req", method = RequestMethod.POST)
-    public String addProject(@ModelAttribute Project proj){
-
-
+    public String addProject(@Valid Project proj, Errors errors){
+if(errors.hasErrors()){
+    return "create-project";
+}
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
 
@@ -175,18 +181,24 @@ return "employee-list";
     }
 
 @RequestMapping(value = "/create-project")
-    public String showCreateProjectForm(){
+    public String showCreateProjectForm(Model model ){
+        model.addAttribute("project",new Project());
         return "create-project";
 }
 
 @RequestMapping(value = "/create-task")
-    public String showCreateTaskForm(){
-
+    public String showCreateTaskForm(Model model){
+model.addAttribute("task", new Task());
         return "create-task";
 }
 
 @RequestMapping(value = "/create-task-req", method = RequestMethod.POST)
-    public String createRequestTask(@ModelAttribute Task task){
+    public String createRequestTask(@Valid Task task, Errors errors){
+
+        if(errors.hasErrors()){
+            return "create-task";
+        }
+
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
@@ -228,6 +240,9 @@ empProTasks.add(employeeProjectTaskParent);
         }
 
 }
+
+
+
 @RequestMapping(value = "/employees/{id}/projects/", method = RequestMethod.GET)
     public String showEmpDetails(@PathVariable("id") int id, Model model){
     HttpHeaders httpHeaders = new HttpHeaders();
@@ -261,6 +276,7 @@ List<Task> fetchedTasks = taskList.getBody();
 Project fetchedProject = assignedProject .getBody();
 model.addAttribute("taskList", fetchedTasks);
 model.addAttribute("projectSingle", fetchedProject);
+model.addAttribute("empid", empid);
         return "employee-proj-tasks";
 }
 

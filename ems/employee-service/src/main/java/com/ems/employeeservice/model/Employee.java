@@ -1,6 +1,9 @@
 package com.ems.employeeservice.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="employee")
@@ -18,12 +21,13 @@ String name;
 String email;
 
 @Column(name = "age")
-int age;
+@DateTimeFormat(pattern = "yyyy-MM-dd")
+Date dob;
 
-    public Employee(String name, String email, int age) {
+    public Employee(String name, String email, Date age) {
         this.name = name;
         this.email = email;
-        this.age = age;
+        this.dob = age;
     }
 
     public Employee() {
@@ -53,11 +57,11 @@ int age;
         this.email = email;
     }
 
-    public int getAge() {
-        return age;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 }

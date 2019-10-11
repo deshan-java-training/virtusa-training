@@ -7,17 +7,24 @@
 <nav th:replace="fragments/header.html :: navi"></nav>
 <br/><br/><br/><br/>
 <div class="container">
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li  class="breadcrumb-item active"><a href="#" class="active-link">Employees</a></li>
+        </ol>
+
+    <legend class="text-xs-center header">Employees List</legend>
     <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-<br/><a sec:authorize="hasRole('ROLE_manager')" href="/create-employee" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new employee</a><br/>
+<a sec:authorize="hasRole('ROLE_manager')" href="/create-employee" class="btn btn-primary btn-xs pull-right"><b>+</b> Add new employee</a><br/>
 <table class="table table-striped custab">
     <thead>
 
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Age</th>
+        <th>DOB</th>
         <th>Email</th>
         <th class="text-center">Action</th>
     </tr>
@@ -25,7 +32,7 @@
     <tr th:each="employee: ${employees}">
         <td th:text="${employee.getEmpid()}"/>
         <td th:text="${employee.getName()}"/>
-        <td th:text="${employee.getAge()}"/>
+        <td th:text="${#dates.format(employee.getDob(), 'dd-MM-yyyy')}"/>
         <td th:text="${employee.getEmail()}"/>
         <td class="text-center"><a class='btn btn-info btn-xs' th:href="@{'/employees/'+${employee.getEmpid()}+'/projects/'}"><span class="glyphicon glyphicon-edit"></span>View</a></td>
     </tr>

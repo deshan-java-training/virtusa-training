@@ -6,9 +6,14 @@
 <body>
 <nav th:replace="fragments/header.html :: navi"></nav><br><br><br>
 <container>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/employees">Employees</a></li>
+        <li class="breadcrumb-item active"><a href="#" class="active-link">Employee project</a></li>
+    </ol>
     <div class="col-md-12">
     <div class="well well-sm">
-        <legend class="text-xs-center header">Employee Details</legend>
+        <h2 class="form-title">Employee Details</h2>
 <div class="emp-details">
     <div class="emp-icon">
 
@@ -42,10 +47,10 @@
     </div>
     <div class="row">
         <div class="col-md-6 emp-label">
-            <span>Age:</span>
+            <span>DOB:</span>
         </div>
         <div class="col-md-6 emp-ind-info">
-            <span th:text="${employee.getAge()}"/>
+            <span th:text="${#dates.format(employee.getDob(), 'dd-MM-yyyy')}"/>
         </div>
     </div>
 </div>

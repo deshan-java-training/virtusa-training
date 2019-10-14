@@ -1,31 +1,38 @@
-package com.emsui.userinterface.model;
+package com.deshan.ems.commons.model.task;
+
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name="task")
 public class Task {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int taskid;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Task Start field should not be empty")
+
+
+
+    @Column(name="taskstart")
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
     Date taskstart;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Task Due field should not be empty")
+
+    @Column(name = "taskdue")
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
     Date taskdue;
 
-    @NotNull(message = "Task name cannot be null")
-    @Size(min = 2, message = "Task name must have atleast two characters")
+    @Column(name = "name")
     String name;
 
 
     public Task() {
     }
 
-    public Task(int taskid, Date taskstart, Date taskdue, String name) {
-        this.taskid = taskid;
+    public Task(Date taskstart, Date taskdue, String name) {
         this.taskstart = taskstart;
         this.taskdue = taskdue;
         this.name = name;
@@ -59,18 +66,7 @@ public class Task {
         return name;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "taskid=" + taskid +
-                ", taskstart=" + taskstart +
-                ", taskdue=" + taskdue +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
     public void setName(String name) {
         this.name = name;
     }
-
 }

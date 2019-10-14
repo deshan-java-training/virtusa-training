@@ -3,8 +3,8 @@ package com.ems.employeeservice.service;
 import com.ems.employeeservice.accesstoken.AccessTokenConfigurer;
 import com.ems.employeeservice.model.EmployeeProjectTask;
 import com.ems.employeeservice.model.Project;
+import com.ems.employeeservice.model.Task;
 import com.ems.employeeservice.repository.EmpProjTaskRepo;
-import javafx.concurrent.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
@@ -43,9 +43,12 @@ HttpHeaders httpHeaders = new HttpHeaders();
 httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
 
 HttpEntity<Task> httpEntity = new HttpEntity<Task>(httpHeaders);
+List<Task> fetchedListTasks = new ArrayList<Task>();
+if(!neededTasks.isEmpty()){
+    ResponseEntity<List> taskList = restTemplate.exchange("http://ems-tasks:8094/tasks/{list}", HttpMethod.GET, httpEntity, List.class, neededTasks);
+    fetchedListTasks= taskList.getBody();
+}
 
-        ResponseEntity<List> taskList = restTemplate.exchange("http://localhost:8094/tasks/{list}", HttpMethod.GET, httpEntity, List.class, neededTasks);
-    List<Task> fetchedListTasks= taskList.getBody();
 
     return fetchedListTasks;
     }
@@ -59,11 +62,26 @@ HttpEntity<Task> httpEntity = new HttpEntity<Task>(httpHeaders);
         List<Project> projList = new ArrayList<>();
 
         if(!projectIdString.isEmpty()){
-            ResponseEntity<List<Project>> responseEntity =restTemplate.exchange("http://localhost:8091/projects-list/{id}", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
+            ResponseEntity<List<Project>> responseEntity =restTemplate.exchange("http://ems-project:8091/projects-list/{id}", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
             }, projectIdString);
             projList = responseEntity.getBody();
         }
 
         return projList;
+    }
+
+
+    public Project getProjectOfEmployee(int projid) {
+
+    HttpHeaders httpHeaders = new HttpHeaders();
+
+    httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
+    HttpEntity<Project> entityProject = new HttpEntity<Project>(httpHeaders);
+
+  ResponseEntity<Project> getProject = restTemplate.exchange("http://ems-project:8091/projects/{projid}", HttpMethod.GET, entityProject, Project.class, projid);
+   Project fetchedProject = getProject.getBody();
+
+   return fetchedProject;
+
     }
 }

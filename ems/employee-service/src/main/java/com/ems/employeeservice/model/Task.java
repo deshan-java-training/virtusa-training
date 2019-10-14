@@ -1,31 +1,35 @@
-package com.emsui.userinterface.model;
+package com.ems.employeeservice.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class Task {
 
     int taskid;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Task Start field should not be empty")
+
+
+
+
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
     Date taskstart;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Task Due field should not be empty")
+
+
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
     Date taskdue;
 
-    @NotNull(message = "Task name cannot be null")
-    @Size(min = 2, message = "Task name must have atleast two characters")
+
     String name;
 
 
     public Task() {
     }
 
-    public Task(int taskid, Date taskstart, Date taskdue, String name) {
-        this.taskid = taskid;
+    public Task(Date taskstart, Date taskdue, String name) {
         this.taskstart = taskstart;
         this.taskdue = taskdue;
         this.name = name;
@@ -59,18 +63,7 @@ public class Task {
         return name;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "taskid=" + taskid +
-                ", taskstart=" + taskstart +
-                ", taskdue=" + taskdue +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
     public void setName(String name) {
         this.name = name;
     }
-
 }

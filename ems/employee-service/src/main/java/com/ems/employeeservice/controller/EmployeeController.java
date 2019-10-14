@@ -4,9 +4,9 @@ import com.ems.employeeservice.accesstoken.AccessTokenConfigurer;
 import com.ems.employeeservice.model.Employee;
 import com.ems.employeeservice.model.EmployeeProjectTask;
 import com.ems.employeeservice.model.Project;
+import com.ems.employeeservice.model.Task;
 import com.ems.employeeservice.service.EmpProjTaskService;
 import com.ems.employeeservice.service.EmpService;
-import javafx.concurrent.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
@@ -61,6 +61,10 @@ return empProjTaskService.getProjectsOfEmployee(empid);
 
    }
 
+   @RequestMapping(value = "/employees/{empid}/projects/{projid}")
+   public Project getProjectOfEmployee(@PathVariable int empid, @PathVariable int projid){
+        return empProjTaskService.getProjectOfEmployee(projid);
+   }
 
    @RequestMapping(value = "/employees/{id}", method = RequestMethod.GET)
     public Optional<Employee> getEmployeeById(@PathVariable int id){

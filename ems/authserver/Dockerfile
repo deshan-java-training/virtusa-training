@@ -1,4 +1,4 @@
-FROM openjdk:8
-ADD target/authserver-new-0.0.1-SNAPSHOT.jar student-oauthserver.jar
-EXPOSE 8099
-ENTRYPOINT ["java", "-jar", "student-oauthserver.jar"]
+FROM java:8
+ADD target/authserver-new-0.0.1-SNAPSHOT.jar authserver-new-0.0.1-SNAPSHOT.jar
+EXPOSE 8093
+ENTRYPOINT ["java", "-jar", "authserver-new-0.0.1-SNAPSHOT.jar"]

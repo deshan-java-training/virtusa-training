@@ -1,4 +1,4 @@
 spring:
   cloud:
     config:
-      uri: http://localhost:8198
+      uri: http://ems-configserver:8198

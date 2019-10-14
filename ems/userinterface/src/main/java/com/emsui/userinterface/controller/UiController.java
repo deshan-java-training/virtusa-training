@@ -74,7 +74,7 @@ public class UiController extends WebSecurityConfigurerAdapter {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
         HttpEntity<String> httpEntity = new HttpEntity<String>(null, httpHeaders);
-        ResponseEntity<List<Task>> responseEntity = restTemplate.exchange("http://localhost:8094/tasks", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Task>>() {
+        ResponseEntity<List<Task>> responseEntity = restTemplate.exchange("http://ems-tasks:8094/tasks", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Task>>() {
         });
         List<Task> taskList = responseEntity.getBody();
         model.addAttribute("tasks", taskList);
@@ -87,13 +87,13 @@ public class UiController extends WebSecurityConfigurerAdapter {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
         HttpEntity<String> httpEntity = new HttpEntity<String>(null,httpHeaders);
-        ResponseEntity<List<Employee>> responseEntityEmployee = restTemplate.exchange("http://localhost:8092/employees", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Employee>>() {
+        ResponseEntity<List<Employee>> responseEntityEmployee = restTemplate.exchange("http://ems-employee:8092/employees", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Employee>>() {
         });
         List<Employee> empList = responseEntityEmployee.getBody();
-        ResponseEntity<List<Project>> responseEntityProject = restTemplate.exchange("http://localhost:8091/projects", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
+        ResponseEntity<List<Project>> responseEntityProject = restTemplate.exchange("http://ems-project:8091/projects", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
         });
         List<Project> projList = responseEntityProject.getBody();
-        ResponseEntity<List<Task>> responseEntityTask = restTemplate.exchange("http://localhost:8094/tasks", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Task>>() {
+        ResponseEntity<List<Task>> responseEntityTask = restTemplate.exchange("http://ems-tasks:8094/tasks", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Task>>() {
         });
         List<Task> taskList = responseEntityTask.getBody();
         model.addAttribute("employees", empList);
@@ -120,7 +120,7 @@ public class UiController extends WebSecurityConfigurerAdapter {
 
         HttpEntity<Employee> employeeHttpEntity = new HttpEntity<Employee>(employee, httpHeaders);
 
-            ResponseEntity<Employee> responseEntity = restTemplate.exchange("http://localhost:8092/employees", HttpMethod.POST, employeeHttpEntity, Employee.class);
+            ResponseEntity<Employee> responseEntity = restTemplate.exchange("http://ems-employee:8092/employees", HttpMethod.POST, employeeHttpEntity, Employee.class);
 
             if (responseEntity.getStatusCodeValue() == 200) {
                 return "redirect:employees";
@@ -138,7 +138,7 @@ public class UiController extends WebSecurityConfigurerAdapter {
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
 
 HttpEntity<String> httpEntity = new HttpEntity<String>(null, httpHeaders);
-        ResponseEntity<List<Employee>> responseEntity = restTemplate.exchange("http://localhost:8092/employees", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Employee>>() {
+        ResponseEntity<List<Employee>> responseEntity = restTemplate.exchange("http://ems-employee:8092/employees", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Employee>>() {
         });
     List<Employee> employees = responseEntity.getBody();
     model.addAttribute("employees", employees);
@@ -153,14 +153,14 @@ return "employee-list";
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
         HttpEntity<String> httpEntity = new HttpEntity<>(null, httpHeaders);
 
-        ResponseEntity<List<Project>> responseEntity = restTemplate.exchange("http://localhost:8091/projects", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
+        ResponseEntity<List<Project>> responseEntity = restTemplate.exchange("http://ems-project:8091/projects", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
         });
         List<Project> projects = responseEntity.getBody();
         model.addAttribute("projects", projects);
         return "project-list";
     }
 
-
+// Handling request for creating a project
     @RequestMapping(value = "/create-proj-req", method = RequestMethod.POST)
     public String addProject(@Valid Project proj, Errors errors){
 if(errors.hasErrors()){
@@ -171,7 +171,7 @@ if(errors.hasErrors()){
 
         HttpEntity<Project> httpEntity = new HttpEntity<Project>(proj, httpHeaders);
 
-        ResponseEntity<Project> projectResponseEntity = restTemplate.exchange("http://localhost:8091/projects", HttpMethod.POST, httpEntity, Project.class);
+        ResponseEntity<Project> projectResponseEntity = restTemplate.exchange("http://ems-project:8091/projects", HttpMethod.POST, httpEntity, Project.class);
         if(projectResponseEntity.getStatusCodeValue()==200){
             return "redirect:projects";
         }else{
@@ -180,18 +180,21 @@ if(errors.hasErrors()){
 
     }
 
+    //Show template for creating project
 @RequestMapping(value = "/create-project")
     public String showCreateProjectForm(Model model ){
         model.addAttribute("project",new Project());
         return "create-project";
 }
 
+    //Show template for create-task
 @RequestMapping(value = "/create-task")
     public String showCreateTaskForm(Model model){
 model.addAttribute("task", new Task());
         return "create-task";
 }
 
+//Create new task request
 @RequestMapping(value = "/create-task-req", method = RequestMethod.POST)
     public String createRequestTask(@Valid Task task, Errors errors){
 
@@ -204,7 +207,7 @@ model.addAttribute("task", new Task());
         httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
         HttpEntity<Task> httpEntity = new HttpEntity<Task>(task, httpHeaders);
 
-        ResponseEntity<Task> responseEntity = restTemplate.exchange("http://localhost:8094/tasks",HttpMethod.POST, httpEntity, Task.class);
+        ResponseEntity<Task> responseEntity = restTemplate.exchange("http://ems-tasks:8094/tasks",HttpMethod.POST, httpEntity, Task.class);
         if(responseEntity.getStatusCodeValue()==200){
             return "redirect:tasks";
         }else {
@@ -212,6 +215,7 @@ model.addAttribute("task", new Task());
         }
 }
 
+//Create Employee Project Tasks From Operations
 @RequestMapping(value = "/create-req-ept", method = RequestMethod.POST)
     public String saveEmployeeTasks(@ModelAttribute EmployeeProjectTaskList ept){
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -229,7 +233,7 @@ empProTasks.add(employeeProjectTaskParent);
 
         HttpEntity<List> httpEntity = new HttpEntity<List>(empProTasks, httpHeaders);
 
-        ResponseEntity<List<EmployeeProjectTask>> responseEntity = restTemplate.exchange("http://localhost:8092/ept", HttpMethod.POST, httpEntity, new ParameterizedTypeReference<List<EmployeeProjectTask>>() {
+        ResponseEntity<List<EmployeeProjectTask>> responseEntity = restTemplate.exchange("http://ems-employee:8092/ept", HttpMethod.POST, httpEntity, new ParameterizedTypeReference<List<EmployeeProjectTask>>() {
         });
 
         if(responseEntity.getStatusCodeValue()==200){
@@ -242,15 +246,15 @@ empProTasks.add(employeeProjectTaskParent);
 }
 
 
-
+//Get all projects from an employee
 @RequestMapping(value = "/employees/{id}/projects/", method = RequestMethod.GET)
     public String showEmpDetails(@PathVariable("id") int id, Model model){
     HttpHeaders httpHeaders = new HttpHeaders();
     httpHeaders.add("Authorization", AccessTokenConfigurer.getToken());
     HttpEntity<Integer> httpEntity = new HttpEntity<Integer>(id, httpHeaders);
-    ResponseEntity<List<Project>> responseEntity = restTemplate.exchange("http://localhost:8092/employees/{id}/projects", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
+    ResponseEntity<List<Project>> responseEntity = restTemplate.exchange("http://ems-employee:8092/employees/{id}/projects", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<Project>>() {
 }, id);
-ResponseEntity<Employee> employeeResponseEntity = restTemplate.exchange("http://localhost:8092/employees/{id}", HttpMethod.GET, httpEntity, Employee.class, id);
+ResponseEntity<Employee> employeeResponseEntity = restTemplate.exchange("http://ems-employee:8092/employees/{id}", HttpMethod.GET, httpEntity, Employee.class, id);
     List<Project> projectList = responseEntity.getBody();
 Employee fetchedEmpt = employeeResponseEntity.getBody();
     model.addAttribute("projectsList", projectList);
@@ -258,7 +262,7 @@ model.addAttribute("employee", fetchedEmpt);
         return "employee-details";
 }
 
-
+//Get tasks allocated to a particular employee
 @RequestMapping(value = "employees/{empid}/projects/{projid}/tasks/")
 public String showTasksOfEmployeeProjects(@PathVariable int empid, @PathVariable int projid, Model model){
 
@@ -269,9 +273,10 @@ passingInts.add(empid);
 passingInts.add(projid);
 HttpEntity<Task> idsHttpEntity = new HttpEntity<Task>(httpHeaders);
 HttpEntity<Project> projectHttpEntity = new HttpEntity<Project>(httpHeaders);
-ResponseEntity<List<Task>> taskList = restTemplate.exchange("http://localhost:8092/employees/{empid}/projects/{projid}/tasks", HttpMethod.GET, idsHttpEntity, new ParameterizedTypeReference<List<Task>>() {
+ResponseEntity<List<Task>> taskList = restTemplate.exchange("http://ems-employee:8092/employees/{empid}/projects/{projid}/tasks", HttpMethod.GET, idsHttpEntity, new ParameterizedTypeReference<List<Task>>() {
 }, empid, projid);
-ResponseEntity<Project> assignedProject = restTemplate.exchange("http://localhost:8091/projects/{projid}", HttpMethod.GET, projectHttpEntity, Project.class, projid);
+
+ResponseEntity<Project> assignedProject = restTemplate.exchange("http://ems-employee:8092/employees/{empid}/projects/{projid}", HttpMethod.GET, projectHttpEntity, Project.class,empid, projid);
 List<Task> fetchedTasks = taskList.getBody();
 Project fetchedProject = assignedProject .getBody();
 model.addAttribute("taskList", fetchedTasks);

@@ -3,6 +3,10 @@ package com.deshan.ems.commons.model.employee;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Entity
@@ -15,13 +19,17 @@ public class Employee {
     int empid;
 
     @Column(name = "name")
+    @NotEmpty(message = "Employee name cannot be null")
     String name;
 
+    @Email(message = "The email entered must be in correct format")
     @Column(name="email")
     String email;
 
     @Column(name = "age")
+    @NotNull(message = "Employee date cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+         @Past(message = "Please enter a valid dob")
     Date dob;
 
     public Employee(String name, String email, Date age) {

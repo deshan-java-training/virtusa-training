@@ -4,6 +4,9 @@ package com.deshan.ems.commons.model.task;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -18,14 +21,18 @@ public class Task {
 
 
     @Column(name="taskstart")
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @NotNull(message = "Start date cannot be null")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date taskstart;
 
     @Column(name = "taskdue")
-    @DateTimeFormat(pattern = "MM-dd-yyyy")
+    @Future(message = "Invalid due date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+            @NotNull(message = "Due date cannot be a past date")
     Date taskdue;
 
     @Column(name = "name")
+            @NotEmpty(message = "Task name cannot be null")
     String name;
 
 

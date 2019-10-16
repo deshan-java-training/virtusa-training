@@ -1,6 +1,6 @@
 package com.ems.tasksservice.repository;
 
-import com.ems.tasksservice.model.Task;
+import com.deshan.ems.commons.model.task.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

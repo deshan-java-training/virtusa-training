@@ -1,30 +1,18 @@
 package com.ems.employeeservice.controller;
 
-import com.ems.employeeservice.accesstoken.AccessTokenConfigurer;
-import com.ems.employeeservice.model.Employee;
-import com.ems.employeeservice.model.EmployeeProjectTask;
-import com.ems.employeeservice.model.Project;
-import com.ems.employeeservice.model.Task;
+import com.deshan.ems.commons.model.employee.Employee;
+import com.deshan.ems.commons.model.employee.EmployeeProjectTask;
+import com.deshan.ems.commons.model.project.Project;
+import com.deshan.ems.commons.model.task.Task;
 import com.ems.employeeservice.service.EmpProjTaskService;
 import com.ems.employeeservice.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 
-import javax.persistence.Access;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 public class EmployeeController {

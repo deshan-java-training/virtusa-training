@@ -1,6 +1,6 @@
 package com.ems.projectsservice.controller;
 
-import com.ems.projectsservice.model.Project;
+import com.deshan.ems.commons.model.project.Project;
 import com.ems.projectsservice.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

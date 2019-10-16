@@ -1,9 +1,9 @@
 package com.ems.employeeservice.service;
 
+import com.deshan.ems.commons.model.employee.EmployeeProjectTask;
+import com.deshan.ems.commons.model.project.Project;
+import com.deshan.ems.commons.model.task.Task;
 import com.ems.employeeservice.accesstoken.AccessTokenConfigurer;
-import com.ems.employeeservice.model.EmployeeProjectTask;
-import com.ems.employeeservice.model.Project;
-import com.ems.employeeservice.model.Task;
 import com.ems.employeeservice.repository.EmpProjTaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

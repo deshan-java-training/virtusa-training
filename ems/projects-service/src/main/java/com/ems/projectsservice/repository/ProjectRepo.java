@@ -1,6 +1,6 @@
 package com.ems.projectsservice.repository;
 
-import com.ems.projectsservice.model.Project;
+import com.deshan.ems.commons.model.project.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

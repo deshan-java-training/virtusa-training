@@ -1,8 +1,7 @@
 package com.ems.employeeservice.repository;
 
-import com.ems.employeeservice.model.EmployeeProjectTask;
+import com.deshan.ems.commons.model.employee.EmployeeProjectTask;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.scheduling.config.Task;
 
 import java.util.List;
 

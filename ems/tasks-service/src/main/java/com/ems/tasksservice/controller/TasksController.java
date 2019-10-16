@@ -1,6 +1,6 @@
 package com.ems.tasksservice.controller;
 
-import com.ems.tasksservice.model.Task;
+import com.deshan.ems.commons.model.task.Task;
 import com.ems.tasksservice.service.TasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

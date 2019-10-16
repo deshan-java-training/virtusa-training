@@ -1,6 +1,8 @@
 package com.deshan.ems.commons.model.project;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="project")
@@ -12,11 +14,14 @@ public class Project {
     int projid;
 
     @Column(name = "name")
+            @NotEmpty(message = "Project name cannot be null")
     String name;
 
+    @NotEmpty(message = "Domain cannot be null")
     @Column(name="domain")
     String domain;
 
+    @NotEmpty(message = "Status cannot be null")
     @Column(name = "status")
     String status;
 

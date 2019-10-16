@@ -1,6 +1,6 @@
 package com.ems.tasksservice.service;
 
-import com.ems.tasksservice.model.Task;
+import com.deshan.ems.commons.model.task.Task;
 import com.ems.tasksservice.repository.TasksRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

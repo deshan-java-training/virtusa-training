@@ -1,8 +1,6 @@
 package com.ems.employeeservice.service;
 
-import com.ems.employeeservice.model.Employee;
-import com.ems.employeeservice.model.EmployeeProjectTask;
-import com.ems.employeeservice.repository.EmpProjTaskRepo;
+import com.deshan.ems.commons.model.employee.Employee;
 import com.ems.employeeservice.repository.EmpRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

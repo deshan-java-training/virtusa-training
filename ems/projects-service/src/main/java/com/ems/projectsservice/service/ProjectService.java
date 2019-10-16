@@ -1,6 +1,6 @@
 package com.ems.projectsservice.service;
 
-import com.ems.projectsservice.model.Project;
+import com.deshan.ems.commons.model.project.Project;
 import com.ems.projectsservice.repository.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
